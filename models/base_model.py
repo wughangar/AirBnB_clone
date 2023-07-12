@@ -27,8 +27,8 @@ class BaseModel:
             when instance is created and updated
         """
         self.id = str(uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
 
         # args will not be used
 
@@ -57,14 +57,4 @@ class BaseModel:
         method that return a dictionary containing
         all key/values of __dict__ of the instance
         """
-        json_dict = {}
-        for key, value in self.__dict__.items():
-            if isinstance(value, datetime.datetime):
-                json_dict[key] = value.isoformat()
-            else:
-                try:
-                    json.dumps(value)
-                    json_dict[key] = value
-                except TypeError:
-                    json_dict[key] = str(value)
-        return json_dict
+        return {'__class__': type(self).__name__, **self.__dict__}
