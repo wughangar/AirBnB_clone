@@ -3,7 +3,7 @@
 BaseModel
 """
 
-import datetime
+from datetime import datetime
 from uuid import uuid4
 import json
 
@@ -33,13 +33,11 @@ class BaseModel:
         # args will not be used
 
         if kwargs:
-            v_args = {
-                    key: value
-                    for key, value in kwargs.items()
-                    if key != '__class__'
-                    }
-            for key, value in v_args.items():
-                setattr(self, key, value)
+            for key, value in kwargs.items():
+                if key != '__class__':
+                    if key in ['created_at', 'updated_at']:
+                        value = datetime.fromisoformat(value)
+                    setattr(self, key, value)
 
     def __str__(self):
         """
