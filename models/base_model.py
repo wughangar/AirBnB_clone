@@ -5,7 +5,6 @@ BaseModel
 
 from datetime import datetime
 from uuid import uuid4
-import json
 
 
 class BaseModel:
@@ -35,8 +34,6 @@ class BaseModel:
         if kwargs:
             for key, value in kwargs.items():
                 if key != '__class__':
-                    if key in ['created_at', 'updated_at']:
-                        value = datetime.fromisoformat(value)
                     setattr(self, key, value)
 
     def __str__(self):
