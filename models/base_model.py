@@ -39,8 +39,7 @@ class BaseModel:
                     if key != '__class__'
                     }
             for key, value in v_args.items():
-                self.key = value
-                self.value = value
+                setattr(self, key, value)
 
     def __str__(self):
         """
