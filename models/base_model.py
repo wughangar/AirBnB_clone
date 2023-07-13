@@ -5,7 +5,6 @@ BaseModel
 
 from datetime import datetime
 from uuid import uuid4
-from models import storage
 
 
 class BaseModel:
@@ -26,6 +25,7 @@ class BaseModel:
             updated_at:assign current datetime
             when instance is created and updated
         """
+        from models import storage
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
@@ -51,6 +51,7 @@ class BaseModel:
         """
         public instance method that updates updated_at with current time
         """
+        from models import storage
         now = datetime.now()
         self.updated_at = now.isoformat()
         storage.save()

@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import json
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -46,6 +47,12 @@ class FileStorage:
         """
         try:
             with open(self.__file_path, 'r') as json_file:
-                self.__objects = json.load(json_file)
+                dic = json.load(json_file)
+            for key, value in dic.items():
+                class_name, obj_id = key.split(".")
+                cls = globals().get(class_name)
+                if cls:
+                    obj = cls(**value)
+                    self.__objects[key] = obj
         except FileNotFoundError:
             pass
