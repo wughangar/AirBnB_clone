@@ -5,6 +5,7 @@ BaseModel
 
 from datetime import datetime
 from uuid import uuid4
+from models import storage
 
 
 class BaseModel:
@@ -32,9 +33,13 @@ class BaseModel:
         # args will not be used
 
         if kwargs:
-            for key, value in kwargs.items():
+            for key, val in kwargs.items():
                 if key != '__class__':
-                    setattr(self, key, value)
+                    if key in ['updated_at', 'created_at']:
+                        val = datetime.strptime(val, '%Y-%m-%dT%H:%M:%S.%f')
+                    setattr(self, key, val)
+        if self.id not in storage.all():
+            storage.new(self)
 
     def __str__(self):
         """
@@ -46,12 +51,21 @@ class BaseModel:
         """
         public instance method that updates updated_at with current time
         """
-        now = datetime.datetime.now()
+        now = datetime.now()
         self.updated_at = now.isoformat()
+        storage.save()
 
     def to_dict(self):
         """
         method that return a dictionary containing
         all key/values of __dict__ of the instance
         """
-        return {'__class__': type(self).__name__, **self.__dict__}
+        dic = {}
+
+        for key, value in self.__dict__.items():
+            if key in ['updated_at', 'created_at']:
+                if isinstance(value, datetime):
+                    value = value.strftime('%Y-%m-%dT%H:%M:%S.%f')
+            dic[key] = value
+
+        return {'__class__': type(self).__name__, **dic}
