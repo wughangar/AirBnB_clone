@@ -2,12 +2,13 @@
 """
 file storage class
 """
+import json
 
 class FileStorage:
     """
     this class serializes and deserializes json files
     """
-    def __init__(self, file_path, objects):
+    def __init__(self):
         """
         initializing public class attributes
         with private attributes; file_path and objects
@@ -15,9 +16,7 @@ class FileStorage:
             file_path: string-path to the json file
             objects: dictionary- empty but will store objects by class name.id
         """
-        self.__file_path = file_path
-        self.__objects = objects
-
+        self.__file_path = 'file.json'
         self.__objects = {}
 
     def all(self):
@@ -40,8 +39,12 @@ class FileStorage:
         public attribute method that serializes objects to the json file 
         path: __file_path
         """
+        json_dict = {}
+        for key, obj in self.__objects.items():
+            json_dict[key] = obj.to_dict()
+
         with open(self.__file_path, 'w') as file:
-            json.dump({key: obj.to_dict() for key, obj in self.__objects.items()}, file)
+            json.dump(json_dict, file)
 
     def reload(self):
         """

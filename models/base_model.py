@@ -41,6 +41,8 @@ class BaseModel:
                     }
             for key, value in v_args.items():
                 setattr(self, key, value)
+        if self.id not in storage.all():
+            storage.new(self)
 
 
     def __str__(self):
@@ -55,7 +57,6 @@ class BaseModel:
         """
         now = datetime.datetime.now()
         self.updated_at = now.isoformat()
-
         storage.save()
 
     def to_dict(self):
