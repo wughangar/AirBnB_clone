@@ -41,7 +41,7 @@ class FileStorage:
         path: __file_path
         """
         with open(self.__file_path, 'w') as file:
-            json.dumo({key: obj.to_dict() for key, obj in self.__objects.items()}, file)
+            json.dump({key: obj.to_dict() for key, obj in self.__objects.items()}, file)
 
     def reload(self):
         """
