@@ -5,6 +5,7 @@ place class that inherits from baseclass
 
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """
     place class with the following public attributes

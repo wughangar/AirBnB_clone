@@ -3,10 +3,11 @@
 BaseModel
 """
 
-import datetime
+from datetime import datetime
 from uuid import uuid4
-import json
-import models.__init__
+
+
+
 class BaseModel:
     """
     This class defines all common attributes/methods for other classes
@@ -25,23 +26,21 @@ class BaseModel:
             updated_at:assign current datetime
             when instance is created and updated
         """
+        from models import storage
         self.id = str(uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
 
         # args will not be used
 
         if kwargs:
-            v_args = {
-                    key: value
-                    for key, value in kwargs.items()
-                    if key != '__class__'
-                    }
-            for key, value in v_args.items():
-                setattr(self, key, value)
+            for key, val in kwargs.items():
+                if key != '__class__':
+                    if key in ['updated_at', 'created_at']:
+                        val = datetime.strptime(val, '%Y-%m-%dT%H:%M:%S.%f')
+                    setattr(self, key, val)
         if self.id not in storage.all():
             storage.new(self)
-
 
     def __str__(self):
         """
@@ -53,8 +52,11 @@ class BaseModel:
         """
         public instance method that updates updated_at with current time
         """
-        now = datetime.datetime.now()
+        from models import storage
+        now = datetime.now()
         self.updated_at = now.isoformat()
+        self.updated_at = datetime.strptime(self.updated_at,
+                                            '%Y-%m-%dT%H:%M:%S.%f')
         storage.save()
 
     def to_dict(self):
@@ -62,14 +64,11 @@ class BaseModel:
         method that return a dictionary containing
         all key/values of __dict__ of the instance
         """
-        json_dict = {}
+        dic = {}
+
         for key, value in self.__dict__.items():
-            if isinstance(value, datetime.datetime):
-                json_dict[key] = value.isoformat()
-            else:
-                try:
-                    json.dumps(value)
-                    json_dict[key] = value
-                except TypeError:
-                    json_dict[key] = str(value)
-        return json_dict
+            if key in ['updated_at', 'created_at']:
+                value = value.strftime('%Y-%m-%dT%H:%M:%S.%f')
+            dic[key] = value
+
+        return {'__class__': type(self).__name__, **dic}

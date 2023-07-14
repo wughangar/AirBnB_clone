@@ -6,6 +6,8 @@ city class
 
 from models.base_model import BaseModel
 
+
+
 class Amenity(BaseModel):
     """
     city class that inherits from Baseclass
@@ -13,7 +15,8 @@ class Amenity(BaseModel):
         name: string - empty string
     """
     name = ""
-    def __init__(self, *args, **kwags):
+
+    def __init__(self, *args, **kwargs):
         """
         initializatioon of args and kwargs
 
