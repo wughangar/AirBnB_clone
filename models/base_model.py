@@ -54,6 +54,8 @@ class BaseModel:
         from models import storage
         now = datetime.now()
         self.updated_at = now.isoformat()
+        self.updated_at = datetime.strptime(self.updated_at,
+                                            '%Y-%m-%dT%H:%M:%S.%f')
         storage.save()
 
     def to_dict(self):
@@ -65,8 +67,7 @@ class BaseModel:
 
         for key, value in self.__dict__.items():
             if key in ['updated_at', 'created_at']:
-                if isinstance(value, datetime):
-                    value = value.strftime('%Y-%m-%dT%H:%M:%S.%f')
+                value = value.strftime('%Y-%m-%dT%H:%M:%S.%f')
             dic[key] = value
 
         return {'__class__': type(self).__name__, **dic}
