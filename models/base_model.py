@@ -6,9 +6,7 @@ BaseModel
 import datetime
 from uuid import uuid4
 import json
-from __init__  import storage
-
-
+import models.__init__
 class BaseModel:
     """
     This class defines all common attributes/methods for other classes
