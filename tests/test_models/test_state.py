@@ -30,3 +30,24 @@ class TestState(unittest.TestCase):
         cls = State()
         self.assertEqual(cls.name, "")
 
+    def test_to_dict(self):
+        #test case to convert state class into dictionary
+        cls = State()
+        state_dict = cls.to_dict()
+        self.assertIsInstance(state_dict, dict)
+
+    def test_str(self):
+        # test case for str method in BaseModel class
+        cls = State()
+        string = str(cls)
+        self.assertIn('[State]', string)
+
+    def test_save(self):
+        cls = State()
+        orig_time = cls.created_at
+        upd_time = cls.updated_at
+        cls.save()
+        self.assertTrue(orig_time, cls.created_at)
+        self.assertTrue(upd_time, cls.updated_at)
+if __name__ == '__main__':
+    unittest.main()
