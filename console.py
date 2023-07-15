@@ -5,7 +5,6 @@ the airbnb console
 
 from models.base_model import BaseModel
 from models import storage
-from models.base_model import BaseModel
 from models.user import User
 from models.city import City
 from models.place import Place
@@ -141,6 +140,46 @@ class HBNBCommand(cmd.Cmd):
                     setattr(obj, args[2], args[3])
 
                 storage.save()
+
+    def do_count(self, arg):
+        """ Retuns count for a types' instances """
+        dic = storage.all()
+        count = 0
+        for value in dic.values():
+            if type(value).__name__ == arg:
+                count += 1
+        return count
+
+    def default(self, arg):
+        """ Sets default console behaviour """
+        args = arg.split(".")
+        if len(args) > 1:
+            if args[1] == "all()":
+                self.do_all(args[0])
+            elif args[1] == "count()":
+                print(self.do_count(args[0]))
+            elif args[1].startswith("show"):
+                ids = args[1].split("(")[1][1:-2]
+                self.do_show(f"{args[0]} {ids}")
+            elif args[1].startswith("destroy"):
+                ids = args[1].split("(")[1][1:-2]
+                self.do_destroy(f"{args[0]} {ids}")
+            elif args[1].startswith("update"):
+                parts = args[1].split("(")[1]
+                parts = parts.split(",")
+                ids = attr = value = ""
+                if len(parts):
+                    ids = parts[0][1:-1].strip()
+                if len(parts) > 1:
+                    attr = parts[1][1:-1].strip()
+                if len(parts) > 2:
+                    value = parts[2][:-1].strip()
+
+                self.do_update(f"{args[0]} {ids} {attr} {value}")
+            else:
+                print(f"*** Unknown syntax: {arg}")
+        else:
+            print(f"*** Unknown syntax: {arg}")
 
 
 if __name__ == '__main__':
