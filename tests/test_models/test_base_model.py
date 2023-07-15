@@ -6,6 +6,7 @@ from models.base_model import BaseModel
 test cases for the basemodel class
 """
 
+
 class TestBaseModel(unittest.TestCase):
     def test_init(self):
         """
@@ -59,6 +60,7 @@ class TestBaseModel(unittest.TestCase):
         cls = BaseModel()
         cls_dict = cls.to_dict()
         self.assertIsInstance(cls_dict, dict)
+
 
 if __name__ == '__main__':
     unittest.main()
