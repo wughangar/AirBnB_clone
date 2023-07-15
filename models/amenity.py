@@ -7,7 +7,6 @@ city class
 from models.base_model import BaseModel
 
 
-
 class Amenity(BaseModel):
     """
     city class that inherits from Baseclass
