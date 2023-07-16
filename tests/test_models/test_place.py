@@ -2,9 +2,11 @@ import unittest
 from models.place import Place
 from models.base_model import BaseModel
 
+
 """
 test files for Place class
 """
+
 
 class TestPlace(unittest.TestCase):
     """
@@ -51,7 +53,7 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(cls.amenity_ids, "")
 
     def test_to_dict(self):
-        #test case to convert Place class into dictionary
+        # test case to convert Place class into dictionary
         cls = Place()
         state_dict = cls.to_dict()
         self.assertIsInstance(state_dict, dict)
@@ -70,6 +72,7 @@ class TestPlace(unittest.TestCase):
         cls.save()
         self.assertTrue(orig_time, cls.created_at)
         self.assertTrue(upd_time, cls.updated_at)
+
 
 if __name__ == '__main__':
     unittest.main()

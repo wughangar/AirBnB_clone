@@ -6,6 +6,7 @@ from models.base_model import BaseModel
 test files for review class
 """
 
+
 class TestReview(unittest.TestCase):
     """
     edge test cases for class Review
@@ -35,7 +36,7 @@ class TestReview(unittest.TestCase):
         self.assertEqual(cls.text, "")
 
     def test_to_dict(self):
-        #test case to convert Review class into dictionary
+        # test case to convert Review class into dictionary
         cls = Review()
         state_dict = cls.to_dict()
         self.assertIsInstance(state_dict, dict)
@@ -53,6 +54,7 @@ class TestReview(unittest.TestCase):
         cls.save()
         self.assertTrue(orig_time, cls.created_at)
         self.assertTrue(upd_time, cls.updated_at)
+
 
 if __name__ == '__main__':
     unittest.main()

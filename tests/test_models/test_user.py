@@ -7,6 +7,7 @@ from datetime import datetime
 test cases for class User
 """
 
+
 class TestUser(unittest.TestCase):
     """
     test case edge cases
@@ -48,11 +49,11 @@ class TestUser(unittest.TestCase):
 
     def test_kwargs(self):
         cls = User()
-        cls = User(email="wughangar.rose@gmail.com", password="xyz", first_name="Tony", last_name="mbokola")
-        self.assertEqual(cls.email, "wughangar.rose@gmail.com")
-        self.assertEqual(cls.password, "xyz")
-        self.assertEqual(cls.first_name, "Tony")
-        self.assertEqual(cls.last_name, "mbokola")
+        cls = User(email="r", password="x", first_name="T", last_name="mk")
+        self.assertEqual(cls.email, "r")
+        self.assertEqual(cls.password, "x")
+        self.assertEqual(cls.first_name, "T")
+        self.assertEqual(cls.last_name, "mk")
 
     def test_main_attributes(self):
         """
@@ -81,6 +82,7 @@ class TestUser(unittest.TestCase):
         cls_updated_at = cls.updated_at
         cls.save()
         self.assertNotEqual(cls_created_at, cls.updated_at)
+
 
 if __name__ == '__main__':
     unittest.main()

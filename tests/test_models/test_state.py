@@ -6,6 +6,7 @@ from models.base_model import BaseModel
 test files for state class
 """
 
+
 class TestState(unittest.TestCase):
     """
     edge test cases for class state
@@ -31,7 +32,7 @@ class TestState(unittest.TestCase):
         self.assertEqual(cls.name, "")
 
     def test_to_dict(self):
-        #test case to convert state class into dictionary
+        # test case to convert state class into dictionary
         cls = State()
         state_dict = cls.to_dict()
         self.assertIsInstance(state_dict, dict)
@@ -49,5 +50,7 @@ class TestState(unittest.TestCase):
         cls.save()
         self.assertTrue(orig_time, cls.created_at)
         self.assertTrue(upd_time, cls.updated_at)
+
+
 if __name__ == '__main__':
     unittest.main()
