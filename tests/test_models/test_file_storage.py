@@ -24,6 +24,14 @@ class FileStorageTestCase(unittest.TestCase):
         # check if all() return a dictionary of objects
         self.assertIsInstance(cls.all(), dict)
 
+    def test_new(self):
+        # test for new() method thats sets onbject with id
+        cls = FileStorage()
+        obj = BaseModel()
+        cls.new(obj)
+        key = f"BaseModel.{obj.id}"
+        self.assertIn(key, cls.all())
+
     def test_save_and_reload(self):
         # testing save and reload methods: save(), reload()
         # adding some objects to the storage
