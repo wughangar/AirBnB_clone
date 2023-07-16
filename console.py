@@ -119,27 +119,26 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             args = arg.split()
+            dic = storage.all()
+            key = f"{args[0]}.{args[1]}"
             if args[0] not in globals():
                 print("** class doesn't exist **")
             elif len(args) < 2:
                 print("** instance id missing **")
             elif len(args) < 3:
-                print("** attribute name missing **")
+                if key not in dic:
+                    print("** no instance found **")
+                else:
+                    print("** attribute name missing **")
             elif len(args) < 4:
                 print("** value missing **")
             else:
-                dic = storage.all()
-                key = f"{args[0]}.{args[1]}"
-                if key not in dic:
-                    cls = globals().get(args[0])
-                    if cls:
-                        obj = cls()
-                        setattr(obj, args[2], args[3])
-                else:
+                if key in dic:
                     obj = dic[key]
                     setattr(obj, args[2], args[3])
-
-                storage.save()
+                    storage.save()
+                else:
+                    print("** no instance found **")
 
     def do_count(self, arg):
         """ Retuns count for a types' instances """
