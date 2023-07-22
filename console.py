@@ -120,7 +120,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             args = arg.split()
             dic = storage.all()
-            key = f"{args[0]}.{args[1]}"
+            if len(args) > 1:
+                key = f"{args[0]}.{args[1]}"
             if args[0] not in globals():
                 print("** class doesn't exist **")
             elif len(args) < 2:
