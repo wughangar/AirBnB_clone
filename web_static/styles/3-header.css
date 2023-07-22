@@ -4,4 +4,6 @@ header {
 	width: 100%;
 	border-bottom: 1px;
 	border-bottom-color: #CCCCCC;
+	background-image: url("models/logo.png");
+	background-position: center;
 }
