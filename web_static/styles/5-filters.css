@@ -1,12 +1,14 @@
-.container .filters {
+.filters {
 	color: white;
 	height: 70px;
 	width: 100%;
 	border: 1px solid #DDDDDD;
 	border-radius: 4px;
+	align-items: center;
+	position: absolute;
 }
 
-.container .filters button {
+button {
 	font-size: 18px;
 	background-color: #FF5A5F;
 	color: #FFFFFF;
@@ -16,18 +18,14 @@
 	border-radius: 4px;
 	cursor: pointer;
 	float: right;
-	top: 50%;
 	right: 30px;
-	transform: translateY(-50%);
 	opacity: 1;
-	transition: opacity 0.3s ease;
 }
 
-.container .filters button:hover {
+button:hover {
 	opacity: 0.9;
 }
-
-.container .filters .locations {
+.locations {
 	height: 100%;
 	width: 25%;
 	float: left;
@@ -35,19 +33,30 @@
 }
 
 
-.container .filters .amenities {
+.amenities {
 	float: left;
 	width: 25%;
 	height: 100%;
 	border-right: 1px solid #DDDDDD;
 }
 
-.container .filters h3 {
+h3 {
 	font-weight: 600;
 }
 
-.container .filters h4 {
+h4 {
 	font-weight: 400;
 	font-size: 14px;
 }
 
+footer {
+	bottom: 0;
+	position: fixed;
+	left: 0;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	border-top: 1px solid #CCCCCC;
+}
